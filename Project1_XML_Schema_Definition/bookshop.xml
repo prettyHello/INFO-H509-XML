@@ -1,7 +1,141 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-
-
+	<ScientificProducts>
+		<book type="scientific" isbn="123-456-789">
+			<titre> Teste du titre du libre</titre>
+			<ListingPerson>
+				<authors>
+					<person sexe="M">
+						<name>DOE</name>
+						<FirstName>John</FirstName>
+						<adresse>
+							<numero>7</numero>
+							<rue>impasse du chemin</rue>
+							<PostalCode>7505</PostalCode>
+							<city>PARIS</city>
+							<country>FRANCE</country>
+						</adresse>
+						<Phones>
+							<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+							<Phone type="cellphone" locality="BEL">03265765765675</Phone>
+							<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+						</Phones>
+						<emails>
+							<email type="personnel">asiewekoulbacbe</email>
+							<email type="professionnel">asieweko@ulb.ac.be</email>
+						</emails>
+					</person>
+				</authors>
+			</ListingPerson>
+			<publisher>Nom de l'editeur</publisher>
+			<YearPublication>2019</YearPublication>
+			<abstract>un bon bon petit resumer</abstract>
+			<edition>edition NATAN</edition>
+		</book>
+		<journals>
+			<titre> titre du Jounal</titre>
+			<volume>67</volume>
+			<number>7654</number>
+			<ListingPerson>
+				<authors>
+					<person sexe="M">
+						<name>DOE</name>
+						<FirstName>John</FirstName>
+						<adresse>
+							<numero>7</numero>
+							<rue>impasse du chemin</rue>
+							<PostalCode>7515</PostalCode>
+							<city>PARIS</city>
+							<country>FRANCE</country>
+						</adresse>
+						<Phones>
+							<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+							<Phone type="cellphone" locality="BEL">0325865675</Phone>
+							<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+						</Phones>
+						<emails>
+							<email type="personnel">asieweko@ulb.ac.be</email>
+							<email type="professionnel">asieweko@ulb.ac.be</email>
+						</emails>
+					</person>
+				</authors>
+			</ListingPerson>
+			<YearPublication>2019</YearPublication>
+			<publisher>Nom de l'editeur</publisher>
+			<ImpactFactor Year="2019"> Type pas encorre connue</ImpactFactor>
+			<contents>
+				<article>
+					<titre> titre du Jounal</titre>
+					<ListingPerson>
+						<authors>
+							<person sexe="M">
+								<name>DOE</name>
+								<FirstName>John</FirstName>
+								<adresse>
+									<numero>7</numero>
+									<rue>impasse du chemin</rue>
+									<PostalCode>7515</PostalCode>
+									<city>PARIS</city>
+									<country>FRANCE</country>
+								</adresse>
+								<Phones>
+									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+									<Phone type="cellphone" locality="BEL">03265765675675</Phone>
+									<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+								</Phones>
+								<emails>
+									<email type="personnel">asieweko@ulb.ac.be</email>
+									<email type="professionnel">asieweko@ulb.ac.be</email>
+								</emails>
+							</person>
+						</authors>
+					</ListingPerson>
+					<NumPage>
+						<StartPage>45</StartPage>
+						<EndPage>100</EndPage>
+						<!-- <NumArticle>56</NumArticle> -->
+					</NumPage>
+				</article>
+			</contents>
+		</journals>
+	</ScientificProducts>
+	<LeisureProducts>
+		<book type="leisure" genre="thriller">
+			<titre> Teste du titre du livre</titre>
+			<ListingPerson>
+						<authors>
+							<person sexe="M">
+								<name>DOE</name>
+								<FirstName>John</FirstName>
+								<adresse>
+									<numero>7</numero>
+									<rue>impasse du chemin</rue>
+									<PostalCode>7515</PostalCode>
+									<city>PARIS</city>
+									<country>FRANCE</country>
+								</adresse>
+								<Phones>
+									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+									<Phone type="cellphone" locality="BEL">03265765675675</Phone>
+									<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+								</Phones>
+								<emails>
+									<email type="personnel">asieweko@ulb.ac.be</email>
+									<email type="professionnel">asieweko@ulb.ac.be</email>
+								</emails>
+							</person>
+						</authors>
+					</ListingPerson>
+			<publisher>Nom de l'editeur</publisher>
+			<YearPublication>2017</YearPublication>
+			<edition>edition NATAN</edition>
+			<Num_page>454</Num_page>
+		</book>
+		<periodicals>
+			<titre> Teste du titre du livre</titre>
+			<price currency="EURO">300</price>
+			<publisher>Nom de l'editeur</publisher>
+		</periodicals>
+	</LeisureProducts>
 </bookshop>
