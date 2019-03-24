@@ -4,7 +4,7 @@
 	<ScientificProducts>
 		<book type="scientific" isbn="123-456-789">
 			<titre> Teste du titre du libre</titre>
-			<ListingPerson>
+			<ListingAuthors>
 				<authors>
 					<person sexe="M">
 						<name>DOE</name>
@@ -27,7 +27,7 @@
 						</emails>
 					</person>
 				</authors>
-			</ListingPerson>
+			</ListingAuthors>
 			<publisher>Nom de l'editeur</publisher>
 			<YearPublication>2019</YearPublication>
 			<abstract>un bon bon petit resumer</abstract>
@@ -37,7 +37,7 @@
 			<titre> titre du Jounal</titre>
 			<volume>67</volume>
 			<number>7654</number>
-			<ListingPerson>
+			<ListingAuthors>
 				<authors>
 					<person sexe="M">
 						<name>DOE</name>
@@ -60,14 +60,14 @@
 						</emails>
 					</person>
 				</authors>
-			</ListingPerson>
+			</ListingAuthors>
 			<YearPublication>2019</YearPublication>
 			<publisher>Nom de l'editeur</publisher>
 			<ImpactFactor Year="2019"> Type pas encorre connue</ImpactFactor>
 			<contents>
 				<article>
 					<titre> titre du Jounal</titre>
-					<ListingPerson>
+					<ListingAuthors>
 						<authors>
 							<person sexe="M">
 								<name>DOE</name>
@@ -90,7 +90,7 @@
 								</emails>
 							</person>
 						</authors>
-					</ListingPerson>
+					</ListingAuthors>
 					<NumPage>
 						<StartPage>45</StartPage>
 						<EndPage>100</EndPage>
@@ -103,7 +103,7 @@
 	<LeisureProducts>
 		<book type="leisure" genre="thriller">
 			<titre> Teste du titre du livre</titre>
-			<ListingPerson>
+			<ListingAuthors>
 						<authors>
 							<person sexe="M">
 								<name>DOE</name>
@@ -126,11 +126,11 @@
 								</emails>
 							</person>
 						</authors>
-					</ListingPerson>
+					</ListingAuthors>
 			<publisher>Nom de l'editeur</publisher>
 			<YearPublication>2017</YearPublication>
 			<edition>edition NATAN</edition>
-			<Num_page>454</Num_page>
+			<Num_page>4</Num_page>
 		</book>
 		<periodicals>
 			<titre> Teste du titre du livre</titre>
