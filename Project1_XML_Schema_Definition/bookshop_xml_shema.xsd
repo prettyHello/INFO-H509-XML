@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- balises attribute "Type"  -->
+
+	<xsd:attribute name="type">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="scientific"/>
+				<xsd:enumeration value="leisure"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	
+	<!-- balises attribute "genre"  -->
+	
+	<xsd:attribute name="genre">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="thriller"/>
+				<xsd:enumeration value="horror"/>
+				<xsd:enumeration value="sci/fi"/>
+				<xsd:enumeration value="romance"/>
+				<xsd:enumeration value="literature"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+
+	<!-- balises independante  -->
+	<!-- ################################################################################################ -->	
+	<xsd:element name="titre" type="xsd:string"/>
+	<xsd:element name="publisher" type="xsd:string"/>
+	<xsd:element name="edition" type="xsd:string"/>
+	<xsd:element name="YearPublication" type="xsd:gYear"/>
+	
+	<!--************  -->
+	<xsd:element name="name" type="xsd:string"/>
+	<xsd:element name="FirstName" type="xsd:string"/>
+	
+	<!--************  -->	
+	<xsd:element name="numero" type="xsd:string"/>
+	<xsd:element name="rue" type="xsd:string"/>
+	<xsd:element name="city" type="xsd:string"/>
+	<xsd:element name="country" type="xsd:string"/>
+	
+	<!--************  -->	
+	<xsd:element name="PostalCode">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="[0-9]{4}"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	
+	<!--************  -->	
+	<!-- <xsd:element name="Phone"> -->
+		<xsd:complexType name="PHONE">
+			<xsd:simpleContent>	
+			<xsd:extension base="xsd:string"> 
+				<xsd:attribute name="type" use="required"> <xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="HousePhone"/>
+							<xsd:enumeration value="cellphone"/>
+							<xsd:enumeration value="OfficePhone"/>
+						</xsd:restriction> </xsd:simpleType>
+				</xsd:attribute>
+				<xsd:attribute name="locality" use="optional"> <xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:pattern value="[A-Z]{3}"/>
+							<xsd:enumeration value="BEL"/>
+							<xsd:enumeration value="CMR"/>
+							<xsd:enumeration value="USA"/>
+						</xsd:restriction> </xsd:simpleType>
+				</xsd:attribute>	
+			</xsd:extension> 
+			</xsd:simpleContent>
+		</xsd:complexType>
+	<!-- </xsd:element>  -->
+	
+<!--************  -->
+
+	<!-- <xsd:element name="email"> -->
+		<xsd:complexType name="EMAIL">
+			<xsd:simpleContent>
+			<xsd:extension base="xsd:string">  
+				<xsd:attribute name="type" default="personnel">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="personnel"/>
+							<xsd:enumeration value="professionnel"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+				</xsd:extension> 
+			</xsd:simpleContent>
+		</xsd:complexType>
+	<!-- </xsd:element> -->
+	
+<!-- ################################################################################################ -->
+	
+	<!-- balise Email -->
+
+	<xsd:element name="emails">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="email" type="EMAIL" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- balises de l'adresse  -->
+	
+	<xsd:element name="adresse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="numero"/>
+				<xsd:element ref="rue"/>
+				<xsd:element ref="PostalCode"/>
+				<xsd:element ref="city"/>
+				<xsd:element ref="country"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- balise telephone -->
+	
+	<xsd:element name="Phones">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Phone" type="PHONE" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<!-- balises person -->
+	
+	<xsd:element name="person">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="name"/>
+				<xsd:element ref="FirstName"/>
+				<xsd:element ref="adresse"/>
+				<xsd:element ref="Phones"/>
+				<xsd:element ref="emails"/>
+			</xsd:sequence>
+			<xsd:attribute name="sexe">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+						<xsd:enumeration value="M"/>
+						<xsd:enumeration value="F"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- balises auteurs -->
+	
+	<xsd:element name="authors">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="person"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- balises article -->
+	
+	<xsd:element name="article" >
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="titre"/>
+				
+				<xsd:element name="ListingPerson">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>	
+				</xsd:element>
+				
+
+				<xsd:choice>
+					<xsd:element name="NumPage">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="StartPage" type="xsd:positiveInteger"/>
+								<xsd:element name="EndPage" type="xsd:positiveInteger"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="NumArticle" type="xsd:positiveInteger"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- balises journals -->
+	
+	<xsd:element name="journals">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="titre"/>
+				<xsd:element name="volume" type="xsd:string" />
+				<xsd:element name="number" type="xsd:nonNegativeInteger" />
+				<xsd:element name="ListingPerson">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+						<xsd:element name="NumRedactor" type="xsd:positiveInteger" />
+					</xsd:choice>
+				</xsd:complexType>	
+				</xsd:element>
+				<xsd:element ref="YearPublication"/>
+				<xsd:element ref="publisher" minOccurs="0" maxOccurs="1" />
+				<xsd:element name="ImpactFactor" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="Year" type="xsd:gYear" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="contents">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element ref="article"/>
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="book">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="titre"/>
+				<xsd:element name="ListingPerson">
+					<xsd:complexType>
+						<xsd:choice>
+							<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+							<xsd:element ref="publisher" minOccurs="1" maxOccurs="unbounded" />
+						</xsd:choice>
+					</xsd:complexType>	
+				</xsd:element>
+				<xsd:element ref="publisher" />
+				<xsd:element ref="YearPublication" />
+				<xsd:element name="abstract" type="xsd:string" minOccurs="0" />
+				<xsd:element ref="edition" minOccurs="0" />
+				<xsd:element name="Num_page"  type="xsd:positiveInteger" minOccurs="0" />
+			</xsd:sequence>
+			<xsd:attribute ref="type" use="required"/>
+			<xsd:attribute name="isbn" type="xsd:string" use="optional"/>
+			<xsd:attribute ref="genre" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	<xsd:element name="periodicals">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="titre" />
+				<xsd:element name="price">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:positiveInteger">
+								<xsd:attribute name="currency"  >
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="EURO"/>
+											<xsd:enumeration value="DOL"/>
+											<xsd:enumeration value="XAF"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="publisher" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+		<xsd:element name="booksss">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="titre"/>
+				<xsd:element name="ListingPerson">
+					<xsd:complexType> 
+						<xsd:sequence>
+							<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+						</xsd:sequence>
+					</xsd:complexType>	
+				</xsd:element>
+				<xsd:element ref="publisher" />
+				<xsd:element ref="YearPublication" />
+				<xsd:element ref="edition" minOccurs="0" />
+				<xsd:element name="Num_page"  type="xsd:positiveInteger" minOccurs="0" />
+			</xsd:sequence>
+			<xsd:attribute ref="type"/>
+			
+
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	
+	<!-- ######### balises PRINCIPAL ##############-->
+	
+	<xsd:element name="bookshop">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ScientificProducts">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element ref="book"/>
+							<xsd:element ref="journals"/>
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="LeisureProducts">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element ref="book"/>
+							<xsd:element ref="periodicals"/>
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>	
+	</xsd:element>
+
+</xsd:schema>
