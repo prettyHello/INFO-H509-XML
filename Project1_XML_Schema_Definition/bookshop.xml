@@ -2,10 +2,10 @@
 
 <bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ScientificProducts>
-		<book type="scientific" isbn="123-456-789">
+		<book type="scientific" isbn="h-78">
 			<titre> Teste du titre du libre</titre>
 			<ListingAuthors>
-				<authors>
+				<authors ID="P1">
 					<person sexe="M">
 						<name>DOE</name>
 						<FirstName>John</FirstName>
@@ -38,7 +38,7 @@
 			<volume>67</volume>
 			<number>7654</number>
 			<ListingAuthors>
-				<authors>
+				<authors ID="drt">
 					<person sexe="M">
 						<name>DOE</name>
 						<FirstName>John</FirstName>
@@ -68,7 +68,7 @@
 				<article>
 					<titre> titre du Jounal</titre>
 					<ListingAuthors>
-						<authors>
+						<authors ID="eds">
 							<person sexe="M">
 								<name>DOE</name>
 								<FirstName>John</FirstName>
@@ -104,7 +104,7 @@
 		<book type="leisure" genre="thriller">
 			<titre> Teste du titre du livre</titre>
 			<ListingAuthors>
-						<authors>
+						<authors ID="PTs">
 							<person sexe="M">
 								<name>DOE</name>
 								<FirstName>John</FirstName>

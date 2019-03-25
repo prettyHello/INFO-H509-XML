@@ -31,6 +31,11 @@
 			</xsd:restriction>
 		</xsd:simpleType>
 	</xsd:attribute>
+	
+	
+	<!-- definition de l'attribute  "ID"  -->
+	
+	<xsd:attribute name="ID" type="xsd:ID"/>
 
 <!-- ############################ definition des element de Niveau_4 & 5 ##################### -->
 
@@ -146,6 +151,7 @@
 				<xsd:element ref="Phones"/>
 				<xsd:element ref="emails"/>
 			</xsd:sequence>
+			<xsd:attribute ref="ID" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
 
@@ -153,9 +159,9 @@
 
 	<xsd:element name="ListingEditors">
 		<xsd:complexType>
-			<xsd:all>
-				<xsd:element ref="editor"/>
-			</xsd:all>
+			<xsd:sequence>
+				<xsd:element ref="editor" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 
@@ -170,7 +176,7 @@
 				<xsd:element ref="Phones"/>
 				<xsd:element ref="emails"/>
 			</xsd:sequence>
-			<xsd:attribute name="sexe">
+			<xsd:attribute name="sexe" use="required">
 				<xsd:simpleType>
 					<xsd:restriction base="xsd:string">
 						<xsd:length value="1"/>
@@ -189,14 +195,15 @@
 			<xsd:all>
 				<xsd:element ref="person"/>
 			</xsd:all>
+			<xsd:attribute ref="ID" use="required"/>
 		</xsd:complexType>
 	</xsd:element>
 
 	<xsd:element name="ListingAuthors">
 		<xsd:complexType>
-			<xsd:all>
-				<xsd:element ref="authors"/>
-			</xsd:all>
+			<xsd:sequence>
+				<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 
@@ -208,8 +215,6 @@
 				<xsd:element ref="titre"/>
 
 				<xsd:element ref="ListingAuthors" />
-
-
 
 				<xsd:choice>
 					<xsd:element name="NumPage">
@@ -284,7 +289,7 @@
 				<xsd:element ref="edition" minOccurs="0" />
 			</xsd:sequence>
 			<xsd:attribute ref="type" use="required"/>
-			<xsd:attribute name="isbn" type="xsd:string" use="optional"/>
+			<xsd:attribute name="isbn"  type="xsd:ID" use="optional"/>
 		</xsd:complexType>
 
 
