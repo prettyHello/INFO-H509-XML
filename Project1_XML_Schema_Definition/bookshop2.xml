@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ScientificProducts>
+		<book type="scientific" isbn="h-78">
+			<titre> Teste du titre du libre</titre>
+			<ListingEditors>
+				<editor ID="P1">
+						<name>anicet</name>
+						<adresse>
+							<numero>134</numero>
+							<rue>Avenue de l'universite</rue>
+							<PostalCode>1050</PostalCode>
+							<city>bruxelle</city>
+							<country>Belgique</country>
+						</adresse>
+						<Phones>
+							<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+							<Phone type="cellphone" locality="BEL">03265765765675</Phone>
+							<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+						</Phones>
+						<emails>
+							<email type="personnel">asiewekoulbacbe</email>
+							<email type="professionnel">asieweko@ulb.ac.be</email>
+						</emails>
+				</editor>
+			</ListingEditors>
+			<publisher>Nom de l'editeur</publisher>
+			<YearPublication>2019</YearPublication>
+		</book>
+		<journals>
+			<titre> titre du Jounal</titre>
+			<volume>67</volume>
+			<number>7654</number>
+			<NumRedactor>756</NumRedactor>
+			<YearPublication>2019</YearPublication>
+			<contents>
+				<article>
+					<titre> titre du Jounal</titre>
+					<ListingAuthors>
+						<authors ID="eds">
+							<person sexe="M">
+								<name>DOE</name>
+								<FirstName>John</FirstName>
+								<adresse>
+									<numero>7</numero>
+									<rue>impasse du chemin</rue>
+									<PostalCode>7515</PostalCode>
+									<city>PARIS</city>
+									<country>FRANCE</country>
+								</adresse>
+								<Phones>
+									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+									<Phone type="cellphone" locality="BEL">03265765675675</Phone>
+									<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+								</Phones>
+								<emails>
+									<email type="personnel">asieweko@ulb.ac.be</email>
+									<email type="professionnel">asieweko@ulb.ac.be</email>
+								</emails>
+							</person>
+						</authors>
+					</ListingAuthors>
+
+					<NumArticle>56</NumArticle>
+				</article>
+			</contents>
+		</journals>
+	</ScientificProducts>
+	<LeisureProducts>
+		<book type="leisure" genre="literature">
+			<titre> Teste du titre du livre</titre>
+			<ListingAuthors>
+						<authors ID="PTs">
+							<person sexe="M">
+								<name>DOE</name>
+								<FirstName>John</FirstName>
+								<adresse>
+									<numero>7</numero>
+									<rue>impasse du chemin</rue>
+									<PostalCode>7515</PostalCode>
+									<city>PARIS</city>
+									<country>FRANCE</country>
+								</adresse>
+								<Phones>
+									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
+									<Phone type="cellphone" locality="BEL">03265765675675</Phone>
+									<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
+								</Phones>
+								<emails>
+									<email type="personnel">asieweko@ulb.ac.be</email>
+									<email type="professionnel">asieweko@ulb.ac.be</email>
+								</emails>
+							</person>
+						</authors>
+					</ListingAuthors>
+			<publisher>Nom de l'editeur</publisher>
+			<YearPublication>2019</YearPublication>
+
+		</book>
+		<periodicals>
+			<titre> Teste du titre du livre</titre>
+			<price currency="XAF">3500</price>
+			<publisher>Nom de l'editeur</publisher>
+		</periodicals>
+	</LeisureProducts>
+</bookshop>
