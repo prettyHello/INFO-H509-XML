@@ -242,14 +242,10 @@
 				<xsd:element ref="titre"/>
 				<xsd:element name="volume" type="xsd:string" />
 				<xsd:element name="number" type="xsd:nonNegativeInteger" />
-				<xsd:element name="ListingAuthors">
-				<xsd:complexType>
 					<xsd:choice>
-						<xsd:element ref="authors" minOccurs="1" maxOccurs="unbounded"/>
+						<xsd:element ref="ListingAuthors" minOccurs="1" maxOccurs="unbounded"/>
 						<xsd:element name="NumRedactor" type="xsd:positiveInteger" />
 					</xsd:choice>
-				</xsd:complexType>
-				</xsd:element>
 				<xsd:element ref="YearPublication"/>
 				<xsd:element ref="publisher" minOccurs="0" maxOccurs="1" />
 				<xsd:element name="ImpactFactor" minOccurs="0" maxOccurs="1">
