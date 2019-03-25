@@ -295,7 +295,7 @@
 				<xsd:element ref="publisher" />
 				<xsd:element ref="YearPublication" />
 				<xsd:element ref="edition" minOccurs="0" />
-				<xsd:element name="Num_Page" type="xsd:integer" />
+				<xsd:element name="PageNum" type="xsd:integer" minOccurs="0"/>
 			</xsd:sequence>
 			<xsd:attribute ref="type" use="required"/>
 			<xsd:attribute ref="genre" />
