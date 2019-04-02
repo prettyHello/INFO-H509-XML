@@ -3,7 +3,7 @@
 <bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ScientificProducts>
 		<book type="scientific" isbn="h-78">
-			<titre> Teste du titre du libre</titre>
+			<title> Teste du title du libre</title>
 			<ListingEditors>
 				<editor ID="P1">
 						<name>anicet</name>
@@ -29,14 +29,14 @@
 			<YearPublication>2019</YearPublication>
 		</book>
 		<journals>
-			<titre> titre du Jounal</titre>
+			<title> title du Jounal</title>
 			<volume>67</volume>
 			<number>7654</number>
 			<NumRedactor>756</NumRedactor>
 			<YearPublication>2019</YearPublication>
 			<contents>
 				<article>
-					<titre> titre du Jounal</titre>
+					<title> title du Jounal</title>
 					<ListingAuthors>
 						<authors ID="eds">
 							<person sexe="M">
@@ -69,7 +69,7 @@
 	</ScientificProducts>
 	<LeisureProducts>
 		<book type="leisure" genre="literature">
-			<titre> Teste du titre du livre</titre>
+			<title> Teste du title du livre</title>
 			<ListingAuthors>
 						<authors ID="PTs">
 							<person sexe="M">
@@ -99,7 +99,7 @@
 
 		</book>
 		<periodicals>
-			<titre> Teste du titre du livre</titre>
+			<title> Teste du title du livre</title>
 			<price currency="XAF">3500</price>
 			<publisher>Nom de l'editeur</publisher>
 		</periodicals>

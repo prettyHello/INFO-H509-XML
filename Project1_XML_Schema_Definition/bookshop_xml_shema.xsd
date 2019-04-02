@@ -31,17 +31,17 @@
 			</xsd:restriction>
 		</xsd:simpleType>
 	</xsd:attribute>
-	
-	
+
+
 	<!-- definition de l'attribute  "ID"  -->
-	
+
 	<xsd:attribute name="ID" type="xsd:ID"/>
 
 <!-- ############################ definition des element de Niveau_4 & 5 ##################### -->
 
 	<!-- ################################# element independante #################################### -->
 
-	<xsd:element name="titre" type="xsd:string"/>
+	<xsd:element name="title" type="xsd:string"/>
 	<xsd:element name="publisher" type="xsd:string"/>
 	<xsd:element name="edition" type="xsd:string"/>
 	<xsd:element name="YearPublication" type="xsd:gYear"/>
@@ -59,7 +59,7 @@
 	<!--************  -->
 	<xsd:element name="PostalCode">
 		<xsd:simpleType>
-			<xsd:restriction base="xsd:string">
+			<xsd:restriction base="xsd:positiveInteger">
 				<xsd:pattern value="[0-9]{4}"/>
 			</xsd:restriction>
 		</xsd:simpleType>
@@ -82,6 +82,7 @@
 							<xsd:enumeration value="BEL"/>
 							<xsd:enumeration value="CMR"/>
 							<xsd:enumeration value="USA"/>
+							<xsd:enumeration value="FRA"/>
 						</xsd:restriction> </xsd:simpleType>
 				</xsd:attribute>
 			</xsd:extension>
@@ -212,7 +213,7 @@
 	<xsd:element name="article" >
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="titre"/>
+				<xsd:element ref="title"/>
 
 				<xsd:element ref="ListingAuthors" />
 
@@ -239,7 +240,7 @@
 	<xsd:element name="journals">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="titre"/>
+				<xsd:element ref="title"/>
 				<xsd:element name="volume" type="xsd:string" />
 				<xsd:element name="number" type="xsd:nonNegativeInteger" />
 					<xsd:choice>
@@ -274,7 +275,7 @@
 	<!-- <xsd:element name="book"> -->
 		<xsd:complexType name="bookScientifique">
 			<xsd:sequence>
-				<xsd:element ref="titre"/>
+				<xsd:element ref="title"/>
 					<xsd:choice>
 						<xsd:element ref="ListingAuthors"/>
 						<xsd:element ref="ListingEditors" />
@@ -291,7 +292,7 @@
 
 		<xsd:complexType name="LeisureBook">
 			<xsd:sequence>
-				<xsd:element ref="titre"/>
+				<xsd:element ref="title"/>
 				<xsd:element ref="ListingAuthors" />
 				<xsd:element ref="publisher" />
 				<xsd:element ref="YearPublication" />
@@ -310,7 +311,7 @@
 	<xsd:element name="periodicals">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="titre" />
+				<xsd:element ref="title" />
 				<xsd:element name="price">
 					<xsd:complexType>
 						<xsd:simpleContent>
