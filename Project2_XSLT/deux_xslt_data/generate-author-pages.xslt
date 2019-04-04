@@ -11,156 +11,104 @@
 			</head>
 			<body>
 
-<xsl:variable name="ELEMENTS">book</xsl:variable>
+	<!-- Variable qui contient le nom de tous les Auteurs du Document (meme les nom qui se repete) -->	
+	<xsl:variable name="SelectAuthors">	
+		<xsl:for-each select="dblp">
+			<xsl:for-each select="distinct-values(/dblp/article/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/inproceedings/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/proceedings/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/book/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/incollection/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/phdthesis/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/mastersthesis/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+			<xsl:for-each select="distinct-values(/dblp/www/author)">
+			<xsl:element name="author">
+				<xsl:value-of select="."/>
+			</xsl:element>
+			</xsl:for-each>
+		</xsl:for-each>
+	</xsl:variable>
 
-<!--
-<xsl:variable name="authors">
-	<xsl:for-each select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)">
-		<xsl:element name="author"><xsl:value-of select="."/></xsl:element>
-	</xsl:for-each>
-</xsl:variable>
- -->
-<xsl:variable name="authors" select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)" />
+<!--  <xsl:variable name="SelectAuthors" select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)" /> -->
+<!-- Variable qui contient les sous balise des balise principal -->	
+<xsl:variable name="CHEMIN1"><xsl:copy-of select="/dblp/article"/></xsl:variable>
+<xsl:variable name="CHEMIN2"><xsl:copy-of select="/dblp/inproceedings"/></xsl:variable>
+<xsl:variable name="CHEMIN3"><xsl:copy-of select="/dblp/proceedings"/></xsl:variable>
+<xsl:variable name="CHEMIN4"><xsl:copy-of select="/dblp/book"/></xsl:variable>
+<xsl:variable name="CHEMIN5"><xsl:copy-of select="/dblp/incollection"/></xsl:variable>
+<xsl:variable name="CHEMIN6"><xsl:copy-of select="/dblp/phdthesis"/></xsl:variable>
+<xsl:variable name="CHEMIN7"><xsl:copy-of select="/dblp/mastersthesis"/></xsl:variable>
+<xsl:variable name="CHEMIN8"><xsl:copy-of select="/dblp/www"/></xsl:variable>
+
+
+<!-- ############################ PRINCIPAL ############################ -->
+
+<!-- boucle qui fait le trie et le slection des auteurs -->
+<xsl:for-each select="$SelectAuthors/author">
+	<xsl:variable name="NameAuthor">
+		<xsl:value-of select="."/>
+	</xsl:variable>
 	
-
-<xsl:variable name="article">
-	<xsl:copy-of select="/dblp/*[name()=$ELEMENTS]"/>
-</xsl:variable>
-
-<xsl:for-each select="$authors">
-	<xsl:variable name="author"><xsl:value-of select="."/></xsl:variable>
-	<p> <xsl:value-of select="$author"/>- <xsl:value-of select="count($article/*[name()=$ELEMENTS][author=$author])"/> </p><xsl:text>&#xa;</xsl:text>
-	<p><xsl:value-of select="$article/book[author=$author]/year"/><xsl:text>&#xa;</xsl:text></p>
-	<!--
-	<xsl:for-each select="$article/book[author=$authors/author]/year">
-		<p><xsl:value-of select="."/><xsl:text>&#xa;</xsl:text></p>
-	</xsl:for-each> -->
+	<!-- variable qui contient le nombre d'occurence qu'apparait le nom d'un auteur dans chaque balise principal-->	
+	<xsl:variable name="NbreAuteurArticle"><xsl:value-of select="number(count($CHEMIN1/article[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurInproceedings"><xsl:value-of select="number(count($CHEMIN2/inproceedings[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurProceedings"><xsl:value-of select="number(count($CHEMIN3/proceedings[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurBook"><xsl:value-of select="number(count($CHEMIN4/book[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurIncollection"><xsl:value-of select="number(count($CHEMIN5/incollection[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurPhdthesis"><xsl:value-of select="number(count($CHEMIN6/phdthesis[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurMastersthesis"><xsl:value-of select="number(count($CHEMIN7/mastersthesis[author=$NameAuthor]))"/></xsl:variable>
+	<xsl:variable name="NbreAuteurWww"><xsl:value-of select="number(count($CHEMIN8/www[author=$NameAuthor]))"/></xsl:variable>
+	
+	<!-- affiche chaque auheur distinct (sans les doublons) , avec le nombre total d'occurence qu'il apparait dans tous le document-->	
+	<p> <xsl:value-of select="$NameAuthor"/> - <xsl:value-of select="$NbreAuteurArticle + $NbreAuteurInproceedings + $NbreAuteurProceedings + $NbreAuteurBook + $NbreAuteurIncollection + $NbreAuteurPhdthesis + $NbreAuteurMastersthesis + $NbreAuteurWww"/> </p>
+	
+	
+	<!-- pour chaque Autheur distinct, affiche la liste decrossante des date des article auquel il son nom apparait-->
+	<xsl:apply-templates select="$CHEMIN1/article[author=$NameAuthor]/year"> 
+		<xsl:sort select="." data-type="number" order="descending" />
+	</xsl:apply-templates> 
 	
 </xsl:for-each>
 
-				<h1> ELEMENT article</h1>
-				<xsl:apply-templates select="dblp/article/author" /> 
-				<h1> ELEMENT inproceedings</h1>
-				<xsl:apply-templates select="dblp/inproceedings/author"/>
-				<h1> ELEMENT proceedings</h1>
-				<xsl:apply-templates select="dblp/proceedings/author"/>
-				<h1> ELEMENT book</h1>
-				<xsl:apply-templates select="dblp/book/author"/>
-				<h1> ELEMENT incollection</h1>
-				<xsl:apply-templates select="dblp/incollection/author"/>
-				<h1> ELEMENT phdthesis</h1>
-				<xsl:apply-templates select="dblp/phdthesis/author"/>
-				<h1> ELEMENT mastersthesis</h1>
-				<xsl:apply-templates select="dblp/mastersthesis/author"/>
-				<h1> ELEMENT www</h1>
-				<xsl:apply-templates select="dblp/www/author"/>
 			</body>
 		</html>
 	</xsl:template>
 	
-	<xsl:template match="author">
-		<xsl:variable name="Num" select="position()"/>
-		<xsl:variable name="VAR"><xsl:value-of select="$Num"/> <xsl:value-of select="."/> </xsl:variable>
-		<p><xsl:value-of select="$VAR"/> </p>
+	<!-- ############################ LISTE DES TEMPLATE ############################ -->
+	
+	<!-- template pour afficher la liste des date -->
+	<xsl:template match="year">
+		<xsl:variable name="VAR2"> <xsl:value-of select="."/> </xsl:variable>
+		<p><xsl:value-of select="$VAR2"/> </p>
 	</xsl:template>
 	
 </xsl:stylesheet>
 
-
-
-
-<!-- ####################################################################################################
-
-<xsl:for-each select="dblp">
-	
-					<h1>Liste auteurs dans element article</h1>
-					<xsl:for-each select="article">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="$Num"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element inproceedings</h1>
-					<xsl:for-each select="inproceedings">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element proceedings</h1>
-					<xsl:for-each select="proceedings">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element book</h1>
-					<xsl:for-each select="book">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element incollection</h1>
-					<xsl:for-each select="incollection">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element phdthesis</h1>
-					<xsl:for-each select="phdthesis">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element mastersthesis</h1>
-					<xsl:for-each select="mastersthesis">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-					<h1>Liste auteurs dans element www</h1>
-					<xsl:for-each select="www">
-						<xsl:choose>
-							<xsl:when test="author">
-								<xsl:variable name="Num" select="position()"/>
-								<p>
-									<xsl:value-of select="concat('', $Num)"/> <xsl:value-of select="author"/>
-								</p>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:for-each>
-				</xsl:for-each>
-				
-				-->
