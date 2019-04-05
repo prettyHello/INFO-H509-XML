@@ -117,6 +117,15 @@
 
 	<!-- template pour afficher la liste des date -->
 
+	<xsl:template name="ListeAuteurs">
+		<xsl:param name="P_CHEMIN_X" />
+		<tr>
+			<xsl:for-each select="author">
+				 <td><a href=" "> <xsl:value-of select="."/> </a> </td>
+			</xsl:for-each>
+		</tr>
+	</xsl:template>
+
 
 	<xsl:template name="SelectionYear">
 
@@ -132,60 +141,92 @@
 		<xsl:param name="P_CHEMIN8" />
 
 
-	<xsl:for-each select="$P_CHEMIN1/article[author=$P_NameAuthor]">
+	<xsl:variable name="XPath_article" select="$P_CHEMIN1/article[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_article">
 	<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
-
 		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
 	</xsl:for-each>
-
-		<td> <xsl:value-of select="author"/> </td>
-	
-
-
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_article" />
+	</xsl:call-template>
 	</xsl:for-each>
 
-	<xsl:for-each select="$P_CHEMIN2/inproceedings[author=$P_NameAuthor]/year">
+	<xsl:variable name="XPath_inproceedings" select="$P_CHEMIN2/inproceedings[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_inproceedings">
+		<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
 		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
 	</xsl:for-each>
-
-	<xsl:for-each select="$P_CHEMIN3/proceedings[author=$P_NameAuthor]/year">
-		<xsl:sort select="." data-type="number" order="descending" />
-
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_inproceedings" />
+	</xsl:call-template>
 	</xsl:for-each>
 
-	<xsl:for-each select="$P_CHEMIN4/book[author=$P_NameAuthor]">
+<xsl:variable name="XPath_proceedings" select="$P_CHEMIN3/proceedings[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_proceedings">
+		<xsl:for-each select="year">
+		<xsl:sort select="." data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
+	</xsl:for-each>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_proceedings" />
+	</xsl:call-template>
+	</xsl:for-each>
+
+<xsl:variable name="XPath_book" select="$P_CHEMIN4/book[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_book">
 	<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
-
 		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
 	</xsl:for-each>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_book" />
+	</xsl:call-template>
 	</xsl:for-each>
 
-	<xsl:for-each select="$P_CHEMIN5/incollection[author=$P_NameAuthor]/year">
+<xsl:variable name="XPath_incollection" select="$P_CHEMIN5/incollection[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_incollection">
+		<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
-
 		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
 	</xsl:for-each>
-
-	<xsl:for-each select="$P_CHEMIN6/phdthesis[author=$P_NameAuthor]/year">
-		<xsl:sort select="." data-type="number" order="descending" />
-
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_incollection" />
+	</xsl:call-template>
 	</xsl:for-each>
 
-	<xsl:for-each select="$P_CHEMIN7/mastersthesis[author=$P_NameAuthor]/year">
+<xsl:variable name="XPath_phdthesis" select="$P_CHEMIN6/phdthesis[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_phdthesis">
+		<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
-
 		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
 	</xsl:for-each>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_phdthesis" />
+	</xsl:call-template>
+	</xsl:for-each>
 
-	<xsl:for-each select="$P_CHEMIN8/www[author=$P_NameAuthor]/year">
+<xsl:variable name="XPath_mastersthesis" select="$P_CHEMIN7/mastersthesis[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_mastersthesis">
+		<xsl:for-each select="year">
 		<xsl:sort select="." data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
+	</xsl:for-each>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_mastersthesis" />
+	</xsl:call-template>
+	</xsl:for-each>
 
+<xsl:variable name="XPath_www" select="$P_CHEMIN8/www[author=$P_NameAuthor]"/>
+	<xsl:for-each select="$XPath_www">
+		<xsl:for-each select="year">
+		<xsl:sort select="." data-type="number" order="descending" />
 		<p><xsl:value-of select="."/> </p>
+	</xsl:for-each>
+	<xsl:call-template name="ListeAuteurs">
+		<xsl:with-param name="P_CHEMIN_X" select="$XPath_www" />
+	</xsl:call-template>
 	</xsl:for-each>
 
 	</xsl:template>
