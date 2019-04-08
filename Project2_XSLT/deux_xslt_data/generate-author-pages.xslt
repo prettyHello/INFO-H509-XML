@@ -8,47 +8,10 @@
 
 
 	<xsl:variable name="SelectAuthors">
-		<xsl:for-each select="dblp">
-			<xsl:for-each select="distinct-values(/dblp/article/author)">
+		<xsl:for-each select="*/*/author">
 			<xsl:element name="author">
-				<xsl:value-of select="."/>
+			<p><xsl:value-of select="."/></p>
 			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/inproceedings/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/proceedings/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/book/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/incollection/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/phdthesis/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/mastersthesis/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
-			<xsl:for-each select="distinct-values(/dblp/www/author)">
-			<xsl:element name="author">
-				<xsl:value-of select="."/>
-			</xsl:element>
-			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:variable>
 	<xsl:template match="/">
@@ -156,26 +119,33 @@
 	<xsl:template name="ListeAuteurs">
 
 		<tr>
-		
-			<td  valign="top">
-			<xsl:for-each select="url">
-				<xsl:variable name="Test" select="."/> 
-				 <a href="$Test"> 
-				 <img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a> 
+			<td>
+			<xsl:for-each select="year">
+				 <xsl:value-of select="position()"/>
 			</xsl:for-each>
 			</td>
-			
+
+			<td  valign="top">
+			<xsl:if test="ee">
+			<xsl:for-each select="ee">
+				<xsl:variable name="Test" select="."/>
+				 <a href="$Test">
+				 <img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a>
+			</xsl:for-each>
+			</xsl:if>
+			</td>
+
 			<td>
 			<xsl:for-each select="author">
-				 <a href=" "> <xsl:value-of select="."/> </a> 
+				 <a href=" "> <xsl:value-of select="."/> </a>
 			</xsl:for-each>
-			
+
 			<xsl:for-each select="title">
 				 : <xsl:value-of select="."/>
 			</xsl:for-each>
 			</td>
-			
-			
+
+
 		</tr>
 	</xsl:template>
 
