@@ -254,6 +254,10 @@
 		<xsl:param name="P_CHEMIN7" />
 		<xsl:param name="P_CHEMIN8" />
 
+		<xsl:variable name="Co_authors">
+
+
+
 <xsl:variable name="KeysAuthor" >
 <xsl:if test="not(node()= $P_NameAuthor)">
 		<p><xsl:value-of select="current()"/> </p>
@@ -263,9 +267,14 @@
 
 	<xsl:for-each select="$P_CHEMIN1/article[author=$P_NameAuthor]">
 	<xsl:for-each select="author">
-		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+
+
+					<xsl:element name="Co_author">
+					<xsl:value-of select="."/>
+					</xsl:element>
+
+
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -274,7 +283,9 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -283,16 +294,21 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN4/book[author=$P_NameAuthor]">
 	<xsl:for-each select="author">
-		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+
+					<xsl:element name="Co_author">
+					<xsl:value-of select="."/>
+					</xsl:element>
+
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -301,7 +317,9 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -310,7 +328,9 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -319,7 +339,9 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
@@ -328,10 +350,23 @@
 		<xsl:for-each select="author">
 		<xsl:sort select="." data-type="text" order="ascending" />
 		<xsl:if test="not(node()= $P_NameAuthor)">
-		<p><xsl:value-of select="."/> </p>
-		</xsl:if>
+			<xsl:element name="Co_author">
+			<xsl:value-of select="."/>
+			</xsl:element>		</xsl:if>
 	</xsl:for-each>
 	</xsl:for-each>
+
+	</xsl:variable>
+
+<xsl:for-each select="$Co_authors">
+	<xsl:for-each select="Co_author">
+	<xsl:sort select="." order="ascending"/>
+	<p><xsl:value-of select="."/></p>
+</xsl:for-each>
+</xsl:for-each>
+
+
+
 
 	</xsl:template>
 
