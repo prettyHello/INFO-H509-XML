@@ -175,69 +175,54 @@
 
 
 	<xsl:for-each select="$P_CHEMIN1/article[author=$P_NameAuthor]">
-	<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN2/inproceedings[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN3/proceedings[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN4/book[author=$P_NameAuthor]">
-	<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN5/incollection[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN6/phdthesis[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN7/mastersthesis[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="."/> </th></tr>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<tr><th colspan="3" bgcolor="#FFFFCC"><xsl:value-of select="year"/> </th></tr>
 	<xsl:call-template name="ListeAuteurs" />
 	</xsl:for-each>
 
 	<xsl:for-each select="$P_CHEMIN8/www[author=$P_NameAuthor]">
-		<xsl:for-each select="year">
-		<xsl:sort select="." data-type="number" order="descending" />
-		<p><xsl:value-of select="."/> </p>
-	</xsl:for-each>
+		<xsl:sort select="year" data-type="number" order="descending" />
+		<p><xsl:value-of select="year"/> </p>
 	<xsl:call-template name="ListeAuteurs"/>
 	</xsl:for-each>
-	<xsl:call-template name="ListeAuteurs" />
+
+
 	</xsl:template>
 
 	<!--Liste co_auteur -->
