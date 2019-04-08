@@ -156,9 +156,26 @@
 	<xsl:template name="ListeAuteurs">
 
 		<tr>
-			<xsl:for-each select="author">
-				 <td><a href=" "> <xsl:value-of select="."/> </a> </td>
+		
+			<td  valign="top">
+			<xsl:for-each select="url">
+				<xsl:variable name="Test" select="."/> 
+				 <a href="$Test"> 
+				 <img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a> 
 			</xsl:for-each>
+			</td>
+			
+			<td>
+			<xsl:for-each select="author">
+				 <a href=" "> <xsl:value-of select="."/> </a> 
+			</xsl:for-each>
+			
+			<xsl:for-each select="title">
+				 : <xsl:value-of select="."/>
+			</xsl:for-each>
+			</td>
+			
+			
 		</tr>
 	</xsl:template>
 
