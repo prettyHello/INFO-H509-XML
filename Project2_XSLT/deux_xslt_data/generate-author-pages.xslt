@@ -144,12 +144,6 @@
 			</xsl:element>
 		</xsl:for-each>
 
-		<xsl:for-each select="ee">
-			<xsl:element name="Lien">
-			<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:for-each>
-
 	</xsl:template>
 
 	<xsl:template name="ListeCo_Auteurs">
@@ -291,45 +285,43 @@
 
 		</xsl:variable>
 
-
-
-		<xsl:for-each select="$GroupeYears/GroupeYear">
-		<p><xsl:value-of select="distinct-values(year)"/></p>
-		</xsl:for-each>
-
-
-		<xsl:for-each select="$GroupeYears">
-			<xsl:for-each select="GroupeYear">
-				<xsl:sort select="year" data-type="number" order="descending"/>
-				<tr>
-					<th colspan="3" bgcolor="#FFFFCC">
-						<xsl:value-of select="year"/>
-					</th>
-				</tr>
-				<tr>
-					<td align="right" valign="top">
-						<xsl:for-each select="year">
-								<xsl:value-of select="position()"/>
-						</xsl:for-each>
-					</td>
-					<td>
-						<xsl:if test="ee !='' ">
-						<xsl:for-each select="ListeCoAuteurs">
-								<xsl:variable name="Test"><xsl:value-of select="Lien"/></xsl:variable>
-								<a href="$Test">
-								<img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a>
-						</xsl:for-each>
-						</xsl:if>
-					</td>
-					<td>
-						<xsl:for-each select="ListeCoAuteurs">
-							<xsl:value-of select="Author"/> :
-							<xsl:value-of select="Title"/>
-						</xsl:for-each>
-					</td>
-				</tr>
-			</xsl:for-each>
-		</xsl:for-each>
+		<xsl:for-each-group select="$GroupeYears/GroupeYear/year" group-by="replace(., '\.$', '')">
+			<xsl:sort select="." data-type="number" order="descending"/>
+							<xsl:if test="position() ne 1">
+	            </xsl:if>
+							<xsl:variable name="Isyear" select="replace(., '\.$', '')"/>
+							<tr>
+ 		 					<th colspan="3" bgcolor="#FFFFCC">
+								<xsl:value-of select="$Isyear"/>
+							</th>
+							</tr>
+								<xsl:for-each select="$GroupeYears">
+									<xsl:for-each select="GroupeYear[year=$Isyear]">
+										<tr>
+											<td align="right" valign="top">
+												<xsl:for-each select="year">
+														<xsl:value-of select="position()"/>
+												</xsl:for-each>
+											</td>
+											<td>
+												<xsl:if test="ee !='' ">
+												<xsl:for-each select="ListeCoAuteurs">
+														<xsl:variable name="Test"><xsl:value-of select="Lien"/></xsl:variable>
+														<a href="$Test">
+														<img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a>
+												</xsl:for-each>
+												</xsl:if>
+											</td>
+											<td>
+												<xsl:for-each select="ListeCoAuteurs">
+													<xsl:value-of select="Author"/> :
+													<xsl:value-of select="Title"/>
+												</xsl:for-each>
+											</td>
+										</tr>
+									</xsl:for-each>
+								</xsl:for-each>
+	  </xsl:for-each-group>
 
 	</xsl:template>
 
