@@ -13,12 +13,9 @@
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:variable>
+
 	<xsl:template match="/">
-		<html>
-			<head>
-				<title>recuperer tous les autheu</title>
-			</head>
-			<body>
+
 
 				<!-- Variable qui contient le nom de tous les Auteurs du Document (meme les nom qui se repete) --><!--  <xsl:variable name="SelectAuthors" select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)" /> --><!-- Variable qui contient les sous balise des balise principal -->
 				<xsl:variable name="CHEMIN1">
@@ -47,10 +44,34 @@
 				</xsl:variable>
 
 				<!-- ############################ PRINCIPAL ############################ --><!-- boucle qui fait le trie et le slection des auteurs -->
-				<xsl:for-each select="$SelectAuthors/author">
+
+
+					<xsl:for-each-group select="$SelectAuthors/author" group-by=".">
+
+
+										<xsl:if test="position() ne 1">
+										</xsl:if>
+
+
+
 					<xsl:variable name="NameAuthor">
 						<xsl:value-of select="."/>
 					</xsl:variable>
+
+					<xsl:variable name="PureNameAuthor">
+							<xsl:value-of select= "replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','_')">
+					</xsl:variable>
+
+					<xsl:result-document method="html" href="a-tree/{$PureNameAuthor}.html">
+
+
+					<html>
+						<head>
+							<title><xsl:value-of select="$NameAuthor"/></title>
+						</head>
+						<body>
+
+						
 
 					<!-- variable qui contient le nombre d'occurence qu'apparait le nom d'un auteur dans chaque balise principal-->
 					<xsl:variable name="NbreAuteurArticle">
@@ -112,23 +133,20 @@
 							<xsl:with-param name="P_CHEMIN8" select="$CHEMIN8"/>
 						</xsl:call-template>
 					</table>
-				</xsl:for-each>
 
-			</body>
-		</html>
+				</body>
+			</html>
+
+</xsl:result-document>
+
+</xsl:for-each-group>
+
+
+
+
 	</xsl:template>
 
 	<!-- ############################ LISTE DES TEMPLATE ############################ --><!-- template pour afficher la liste des date -->
-	<xsl:variable name="Balises">
-		<xsl:element name="Balise">article</xsl:element>
-		<xsl:element name="Balise">inproceedings</xsl:element>
-		<xsl:element name="Balise">proceedings</xsl:element>
-		<xsl:element name="Balise">book</xsl:element>
-		<xsl:element name="Balise">incollection</xsl:element>
-		<xsl:element name="Balise">phdthesis</xsl:element>
-		<xsl:element name="Balise">mastersthesis</xsl:element>
-		<xsl:element name="Balise">www</xsl:element>
-	</xsl:variable>
 
 	<xsl:template name="ListeAuteurs">
 
@@ -285,8 +303,11 @@
 
 		</xsl:variable>
 
+
+
 		<xsl:for-each-group select="$GroupeYears/GroupeYear/year" group-by="replace(., '\.$', '')">
 			<xsl:sort select="." data-type="number" order="descending"/>
+			<xsl:variable name="Numpublishers" select="position()"/>
 							<xsl:if test="position() ne 1">
 	            </xsl:if>
 							<xsl:variable name="Isyear" select="replace(., '\.$', '')"/>
@@ -299,9 +320,15 @@
 									<xsl:for-each select="GroupeYear[year=$Isyear]">
 										<tr>
 											<td align="right" valign="top">
-												<xsl:for-each select="year">
-														<xsl:value-of select="position()"/>
-												</xsl:for-each>
+
+														<xsl:variable name="Numpublisher" select="$Numpublishers + position() - 1"/>
+
+														<xsl:for-each select="number(count($GroupeYears/GroupeYear/year))">
+															<xsl:variable name="Totalpublishers" select="."/>
+															<xsl:value-of select="$Totalpublishers - $Numpublisher + 1"/>
+														</xsl:for-each>
+
+
 											</td>
 											<td>
 												<xsl:if test="ee !='' ">
@@ -336,14 +363,9 @@
 		<xsl:param name="P_CHEMIN6"/>
 		<xsl:param name="P_CHEMIN7"/>
 		<xsl:param name="P_CHEMIN8"/>
+
 		<xsl:variable name="Co_authors">
-			<xsl:variable name="KeysAuthor">
-				<xsl:if test="not(node()= $P_NameAuthor)">
-					<p>
-						<xsl:value-of select="current()"/>
-					</p>
-				</xsl:if>
-			</xsl:variable>
+
 			<xsl:for-each select="$P_CHEMIN1/article[author=$P_NameAuthor]">
 				<xsl:for-each select="author">
 					<xsl:if test="not(node()= $P_NameAuthor)">
@@ -423,13 +445,22 @@
 				</xsl:for-each>
 			</xsl:for-each>
 		</xsl:variable>
-		<xsl:for-each select="$Co_authors">
-			<xsl:for-each select="Co_author">
-				<xsl:sort select="." order="ascending"/>
-				<p>
-					<xsl:value-of select="."/>
-				</p>
-			</xsl:for-each>
-		</xsl:for-each>
+
+
+		<xsl:for-each-group select="$Co_authors/Co_author" group-by="replace(., '\.$', '')">
+			<xsl:sort select="." order="ascending"/>
+			<xsl:variable name="Numpublishers" select="position()"/>
+							<xsl:if test="position() ne 1">
+							</xsl:if>
+							<xsl:variable name="IsCo_author" select="replace(., '\.$', '')"/>
+							<tr>
+								<td align="right">
+								<xsl:value-of select="$IsCo_author"/>
+								</td>
+								<td align="left"> [<a href="#p3"> X</a>] </td>
+							</tr>
+
+	</xsl:for-each-group>
+
 	</xsl:template>
 </xsl:stylesheet>
