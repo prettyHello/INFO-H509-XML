@@ -22,30 +22,7 @@
 		</xsl:for-each>
 	</xsl:variable>
 	<xsl:template match="/"><!-- Variable qui contient le nom de tous les Auteurs du Document (meme les nom qui se repete) --><!--  <xsl:variable name="SelectAuthors" select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)" /> --><!-- Variable qui contient les sous balise des balise principal -->
-		<xsl:variable name="CHEMIN1">
-			<xsl:copy-of select="/dblp/article"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN2">
-			<xsl:copy-of select="/dblp/inproceedings"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN3">
-			<xsl:copy-of select="/dblp/proceedings"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN4">
-			<xsl:copy-of select="/dblp/book"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN5">
-			<xsl:copy-of select="/dblp/incollection"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN6">
-			<xsl:copy-of select="/dblp/phdthesis"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN7">
-			<xsl:copy-of select="/dblp/mastersthesis"/>
-		</xsl:variable>
-		<xsl:variable name="CHEMIN8">
-			<xsl:copy-of select="/dblp/www"/>
-		</xsl:variable><!-- ############################ PRINCIPAL ############################ --><!-- boucle qui fait le trie et le slection des auteurs -->
+		<!-- ############################ PRINCIPAL ############################ --><!-- boucle qui fait le trie et le slection des auteurs -->
 		<xsl:for-each-group select="$SelectAuthors/author" group-by=".">
 			<xsl:if test="position() ne 1"/>
 			<xsl:variable name="NameAuthor">
