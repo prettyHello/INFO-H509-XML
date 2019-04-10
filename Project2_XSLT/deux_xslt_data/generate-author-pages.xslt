@@ -227,13 +227,7 @@
 
 		<xsl:for-each select="author">
 			<xsl:element name="Author">
-			 <a href=""><xsl:value-of select="."/></a>,
-			</xsl:element>
-		</xsl:for-each>
-
-		<xsl:for-each select="title">
-			<xsl:element name="Title">
-				<xsl:value-of select="."/>
+			 <xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
 
@@ -270,6 +264,9 @@
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
 					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
+					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
 					</xsl:element>
@@ -284,6 +281,9 @@
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
 					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
+					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
 					</xsl:element>
@@ -297,6 +297,9 @@
 				<xsl:element name="GroupeYear">
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
+					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
 					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
@@ -315,6 +318,9 @@
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
 					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
+					</xsl:element>
 					<xsl:element name="ee">
 						<xsl:value-of select="ee"/>
 					</xsl:element>
@@ -325,6 +331,9 @@
 				<xsl:element name="GroupeYear">
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
+					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
 					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
@@ -340,6 +349,9 @@
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
 					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
+					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
 					</xsl:element>
@@ -354,6 +366,9 @@
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
 					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
+					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
 					</xsl:element>
@@ -367,6 +382,9 @@
 				<xsl:element name="GroupeYear">
 					<xsl:element name="year">
 						<xsl:value-of select="year"/>
+					</xsl:element>
+					<xsl:element name="title">
+						<xsl:value-of select="title"/>
 					</xsl:element>
 					<xsl:element name="ListeCoAuteurs">
 						<xsl:call-template name="ListeAuteurs"/>
@@ -408,18 +426,45 @@
 											</td>
 											<td>
 												<xsl:if test="ee !='' ">
-												<xsl:for-each select="ListeCoAuteurs">
-														<xsl:variable name="Test"><xsl:value-of select="Lien"/></xsl:variable>
-														<a href="$Test">
+
+														<xsl:variable name="Test"><xsl:value-of select="ee"/></xsl:variable>
+														<a href="{$Test}">
 														<img alt="Electronic Edition" title="Electronic Edition" src="http://www.informatik.uni-trier.de/~ley/db/ee.gif" border="0" height="16" width="16"/></a>
-												</xsl:for-each>
+
 												</xsl:if>
 											</td>
 											<td>
 												<xsl:for-each select="ListeCoAuteurs">
-													<xsl:value-of select="Author"/> :
-													<xsl:value-of select="Title"/>
+													<xsl:for-each select="Author">
+
+														<xsl:variable name="PureNameAuthorCourant">
+									      			<xsl:value-of select="replace(replace($P_NameAuthor, '[^a-zA-Z0-9 -.]', '='), ' ','_')"/>
+														</xsl:variable>
+
+														<xsl:variable name="PureNameAuthor">
+									      			<xsl:value-of select="replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','_')"/>
+														</xsl:variable>
+
+														<xsl:variable name="firstLetter">
+									      			<xsl:value-of select="translate(substring($PureNameAuthor, 1, 1), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+														</xsl:variable>
+
+
+
+
+													<xsl:choose>
+<xsl:when test="$PureNameAuthorCourant != $PureNameAuthor">
+	<a href="../{$firstLetter}/{$PureNameAuthor}.html"><xsl:value-of select="."/></a>,
+</xsl:when>
+<xsl:when test="$PureNameAuthorCourant = $PureNameAuthor">
+<xsl:value-of select="."/>,
+</xsl:when>
+</xsl:choose>
+
+
+													</xsl:for-each>
 												</xsl:for-each>
+												: <xsl:value-of select="title"/>
 											</td>
 										</tr>
 									</xsl:for-each>
