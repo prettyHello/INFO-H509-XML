@@ -60,6 +60,8 @@
 						<table border="1">
 							<xsl:call-template name="SelectionCo_auteur">
 								<xsl:with-param name="P_NameAuthor" select="$NameAuthor"/>
+								<xsl:with-param name="P_LastName" select="$LastName"/>
+								<xsl:with-param name="P_firstName" select="$firstName"/>
 							</xsl:call-template>
 						</table>
 					</body>
@@ -159,6 +161,8 @@
 	</xsl:template><!--Liste co_auteur -->
 	<xsl:template name="SelectionCo_auteur">
 		<xsl:param name="P_NameAuthor"/>
+		<xsl:param name="P_LastName"/>
+		<xsl:param name="P_firstName"/>
 		<xsl:variable name="Co_authors">
 			<xsl:for-each select="$dblps/dblp">
 				<xsl:for-each select="*[author=$P_NameAuthor]">
@@ -182,17 +186,17 @@
 					<xsl:variable name="LastName">
 						<xsl:value-of select="tokenize(.,' ')[last()]"/>
 					</xsl:variable>
-					<xsl:variable name="firstName">
+					<xsl:variable name="firstNameCo">
 						<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','.'),$LastName)"/>
 					</xsl:variable>
-					<xsl:variable name="firstLetter">
+					<xsl:variable name="firstLetterCo">
 						<xsl:value-of select="translate(substring($LastName, 1, 1), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
 					</xsl:variable>
-					<a href="../{$firstLetter}/{$LastName}.{$firstName}.html">
+					<a href="../{$firstLetterCo}/{$LastName}.{$firstNameCo}.html">
 						<xsl:value-of select="$IsCo_author"/>
 					</a>
 				</td>
-				<td align="left"> [<a href="#p3"> X</a>] </td>
+				<td align="left"> [<a href="{$P_LastName}.{$P_firstName}.html#p3"> X</a>] </td>
 			</tr>
 		</xsl:for-each-group>
 	</xsl:template>
