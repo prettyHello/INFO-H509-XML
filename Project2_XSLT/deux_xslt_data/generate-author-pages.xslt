@@ -3,12 +3,15 @@
 <!-- New XSLT document created with EditiX XML Editor (http://www.editix.com) at Wed Apr 03 12:14:08 CEST 2019 -->
 
 <xsl:stylesheet version="2.0" exclude-result-prefixes="xs xdt err fn" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xdt="http://www.w3.org/2005/xpath-datatypes" xmlns:err="http://www.w3.org/2005/xqt-errors">
-	<xsl:output method="html" indent="yes" encoding="UTF-8" use-character-maps="html-illegal-chars"/>
+	<xsl:output method="html" indent="yes"  use-character-maps="html-illegal-chars"/>
 	<xsl:character-map name="html-illegal-chars">
-		<xsl:output-character character="" string="–"/><!-- EN DASH in CP1252 -->
+		<xsl:output-character character="&#150;" string=" "/>
 	</xsl:character-map>
+
+	<!-- ############################ PARTIE I: Listing Variables  ############################ -->
+
 	<xsl:variable name="SelectAuthors">
-		<xsl:for-each select="*/*/author">
+		<xsl:for-each select="*/*/author | */*/editor">
 			<xsl:element name="author">
 				<xsl:value-of select="."/>
 			</xsl:element>
@@ -21,18 +24,19 @@
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:variable>
-	<xsl:template match="/"><!-- Variable qui contient le nom de tous les Auteurs du Document (meme les nom qui se repete) --><!--  <xsl:variable name="SelectAuthors" select="distinct-values(/dblp/*[name()=$ELEMENTS]/author)" /> --><!-- Variable qui contient les sous balise des balise principal -->
-		<!-- ############################ PRINCIPAL ############################ --><!-- boucle qui fait le trie et le slection des auteurs -->
-		<xsl:for-each-group select="$SelectAuthors/author" group-by=".">
+	<xsl:template match="/">
+		<!-- ############################ PARTIE II: MAIN ############################ -->
+
+		<xsl:for-each-group select="$SelectAuthors/author | $SelectAuthors/editor" group-by=".">
 			<xsl:if test="position() ne 1"/>
 			<xsl:variable name="NameAuthor">
 				<xsl:value-of select="."/>
 			</xsl:variable>
 			<xsl:variable name="LastName">
-				<xsl:value-of select="tokenize(.,' ')[last()]"/>
+				<xsl:value-of select="replace(tokenize(.,' ')[last()], '[^a-zA-Z0-9 -.]','=')"/>
 			</xsl:variable>
 			<xsl:variable name="firstName">
-				<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','.'),$LastName)"/>
+				<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','_'),$LastName)"/>
 			</xsl:variable>
 			<xsl:variable name="firstLetter">
 				<xsl:value-of select="translate(substring($LastName, 1, 1), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
@@ -44,13 +48,13 @@
 							<xsl:value-of select="$NameAuthor"/>
 						</title>
 					</head>
-					<body><!-- affiche chaque auheur distinct (sans les doublons) , avec le nombre total d'occurence qu'il apparait dans tous le document-->
+					<body>
 						<h1>
 							<a href="../">HOME </a>
 						</h1>
 						<h1>
 							<xsl:value-of select="$NameAuthor"/>
-						</h1><!-- pour chaque Autheur distinct, affiche la liste decrossante des date des article auquel il son nom apparait-->
+						</h1>
 						<table border="1">
 							<xsl:call-template name="SelectionYear">
 								<xsl:with-param name="P_NameAuthor" select="$NameAuthor"/>
@@ -68,19 +72,24 @@
 				</html>
 			</xsl:result-document>
 		</xsl:for-each-group>
-	</xsl:template><!-- ############################ LISTE DES TEMPLATE ############################ --><!-- template pour afficher la liste des date -->
+	</xsl:template>
+
+	<!-- ############################ PARTIE III: LISTE DES TEMPLATES ############################ -->
+	<!-- template pour sauvegarder la liste noms des autres author ou editor de l'auteur Courant (selectionner)  -->
 	<xsl:template name="ListeAuteurs">
-		<xsl:for-each select="author">
+		<xsl:for-each select="author | editor">
 			<xsl:element name="Author">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
+
+	<!-- template pour afficher et regrouper par date les information du premier Tableau -->
 	<xsl:template name="SelectionYear">
 		<xsl:param name="P_NameAuthor"/>
 		<xsl:variable name="GroupeYears">
 			<xsl:for-each select="$dblps/dblp">
-				<xsl:for-each select="*[author=$P_NameAuthor]">
+				<xsl:for-each select="*[author=$P_NameAuthor] | *[editor=$P_NameAuthor]">
 					<xsl:element name="GroupeYear">
 						<xsl:element name="year">
 							<xsl:value-of select="year"/>
@@ -100,7 +109,7 @@
 		</xsl:variable>
 		<xsl:for-each-group select="$GroupeYears/GroupeYear/year" group-by="replace(., '\.$', '')">
 			<xsl:sort select="." data-type="number" order="descending"/>
-			<xsl:variable name="Numpublishers" select="position()"/>
+			<xsl:variable name="Indexs" select="position()"/>
 			<xsl:if test="position() ne 1"/>
 			<xsl:variable name="Isyear" select="replace(., '\.$', '')"/>
 			<tr>
@@ -110,12 +119,13 @@
 			</tr>
 			<xsl:for-each select="$GroupeYears">
 				<xsl:for-each select="GroupeYear[year=$Isyear]">
+					<xsl:sort select="title" />
 					<tr>
 						<td align="right" valign="top">
-							<xsl:variable name="Numpublisher" select="$Numpublishers + position() - 1"/>
+							<xsl:variable name="Index" select="$Indexs + position() - 1"/>
 							<xsl:for-each select="number(count($GroupeYears/GroupeYear/year))">
-								<xsl:variable name="Totalpublishers" select="."/>
-								<xsl:value-of select="$Totalpublishers - $Numpublisher + 1"/>
+								<xsl:variable name="TotalPublisher" select="."/>
+								<xsl:value-of select="$TotalPublisher - $Index + 1"/>
 							</xsl:for-each>
 						</td>
 						<td>
@@ -130,12 +140,13 @@
 						</td>
 						<td>
 							<xsl:for-each select="ListeCoAuteurs">
+
 								<xsl:for-each select="Author">
 									<xsl:variable name="LastName">
-										<xsl:value-of select="tokenize(.,' ')[last()]"/>
+										<xsl:value-of select="replace(tokenize(.,' ')[last()], '[^a-zA-Z0-9 -.]','=')"/>
 									</xsl:variable>
 									<xsl:variable name="firstName">
-										<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','.'),$LastName)"/>
+										<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','_'),$LastName)"/>
 									</xsl:variable>
 									<xsl:variable name="firstLetter">
 										<xsl:value-of select="translate(substring($LastName, 1, 1), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
@@ -158,15 +169,18 @@
 				</xsl:for-each>
 			</xsl:for-each>
 		</xsl:for-each-group>
-	</xsl:template><!--Liste co_auteur -->
+	</xsl:template>
+
+<!-- template pour afficher la liste des co_auteur et regrouper  les information du premier Tableau 2 -->
+
 	<xsl:template name="SelectionCo_auteur">
 		<xsl:param name="P_NameAuthor"/>
 		<xsl:param name="P_LastName"/>
 		<xsl:param name="P_firstName"/>
 		<xsl:variable name="Co_authors">
 			<xsl:for-each select="$dblps/dblp">
-				<xsl:for-each select="*[author=$P_NameAuthor]">
-					<xsl:for-each select="author">
+				<xsl:for-each select="*[author=$P_NameAuthor] | *[editor=$P_NameAuthor] ">
+					<xsl:for-each select="author | editor">
 						<xsl:if test="not(node()= $P_NameAuthor)">
 							<xsl:element name="Co_author">
 								<xsl:value-of select="."/>
@@ -178,16 +192,15 @@
 		</xsl:variable>
 		<xsl:for-each-group select="$Co_authors/Co_author" group-by="replace(., '\.$', '')">
 			<xsl:sort select="." order="ascending"/>
-			<xsl:variable name="Numpublishers" select="position()"/>
 			<xsl:if test="position() ne 1"/>
 			<xsl:variable name="IsCo_author" select="replace(., '\.$', '')"/>
 			<tr>
 				<td align="right">
 					<xsl:variable name="LastName">
-						<xsl:value-of select="tokenize(.,' ')[last()]"/>
+						<xsl:value-of select="replace(tokenize(.,' ')[last()], '[^a-zA-Z0-9 -.]','=')"/>
 					</xsl:variable>
 					<xsl:variable name="firstNameCo">
-						<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','.'),$LastName)"/>
+						<xsl:value-of select="substring-before(replace(replace(., '[^a-zA-Z0-9 -.]', '='), ' ','_'),$LastName)"/>
 					</xsl:variable>
 					<xsl:variable name="firstLetterCo">
 						<xsl:value-of select="translate(substring($LastName, 1, 1), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
