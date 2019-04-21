@@ -45,7 +45,7 @@
 				<html>
 					<head>
 						<title>
-							<xsl:value-of select="$NameAuthor"/>
+							Publication of <xsl:value-of select="$NameAuthor"/>
 						</title>
 					</head>
 					<body>
@@ -96,6 +96,24 @@
 						</xsl:element>
 						<xsl:element name="title">
 							<xsl:value-of select="title"/>
+						</xsl:element>
+						<xsl:element name="booktitle">
+							<xsl:value-of select="booktitle"/>
+						</xsl:element>
+						<xsl:element name="isbn">
+							<xsl:value-of select="isbn"/>
+						</xsl:element>
+						<xsl:element name="journal">
+							<xsl:value-of select="journal"/>
+						</xsl:element>
+						<xsl:element name="pages">
+							<xsl:value-of select="pages"/>
+						</xsl:element>
+						<xsl:element name="volume">
+							<xsl:value-of select="volume"/>
+						</xsl:element>
+						<xsl:element name="number">
+							<xsl:value-of select="number"/>
 						</xsl:element>
 						<xsl:element name="ListeCoAuteurs">
 							<xsl:call-template name="ListeAuteurs"/>
@@ -164,6 +182,24 @@
 								</xsl:for-each>
 							</xsl:for-each>
 												: <xsl:value-of select="title"/>
+
+												<xsl:if test="booktitle !='' ">
+													 <xsl:text> </xsl:text><xsl:value-of select="booktitle"/>
+												</xsl:if>
+
+											<xsl:text> </xsl:text><xsl:value-of select="year"/>
+
+												<xsl:if test="isbn !='' ">
+													: <xsl:value-of select="isbn"/>
+												</xsl:if>
+												<xsl:if test="journal !='' ">
+													<xsl:text> </xsl:text><xsl:value-of select="journal"/>
+													<xsl:text> </xsl:text><xsl:value-of select="volume"/>
+													(<xsl:value-of select="number"/>)
+												</xsl:if>
+												<xsl:if test="pages !='' ">
+													: <xsl:value-of select="pages"/>
+												</xsl:if>
 						</td>
 					</tr>
 				</xsl:for-each>
@@ -180,18 +216,21 @@
 		<xsl:variable name="Co_authors">
 			<xsl:for-each select="$dblps/dblp">
 				<xsl:for-each select="*[author=$P_NameAuthor] | *[editor=$P_NameAuthor] ">
-					<xsl:for-each select="author | editor">
-						<xsl:if test="not(node()= $P_NameAuthor)">
-							<xsl:element name="Co_author">
-								<xsl:value-of select="."/>
-							</xsl:element>
-						</xsl:if>
-					</xsl:for-each>
+					<xsl:element name="ListeCo_author">
+						<xsl:for-each select="author | editor">
+							<xsl:if test="not(node()= $P_NameAuthor)">
+								<xsl:element name="Co_author">
+									<xsl:value-of select="."/>
+								</xsl:element>
+							</xsl:if>
+						</xsl:for-each>
+					</xsl:element>
 				</xsl:for-each>
 			</xsl:for-each>
 		</xsl:variable>
-		<xsl:for-each-group select="$Co_authors/Co_author" group-by="replace(., '\.$', '')">
+		<xsl:for-each-group select="$Co_authors/ListeCo_author/Co_author" group-by="replace(., '\.$', '')">
 			<xsl:sort select="." order="ascending"/>
+
 			<xsl:if test="position() ne 1"/>
 			<xsl:variable name="IsCo_author" select="replace(., '\.$', '')"/>
 			<tr>
@@ -209,7 +248,26 @@
 						<xsl:value-of select="$IsCo_author"/>
 					</a>
 				</td>
-				<td align="left"> [<a href="{$P_LastName}.{$P_firstName}.html#p3"> X</a>] </td>
+				<td align="left">
+					<xsl:for-each select="number(count($dblps/*/*[author=$P_NameAuthor] | *[editor=$P_NameAuthor] ))">
+						<xsl:variable name="TotalCo_author" select="."/>
+						<xsl:for-each select="$Co_authors/ListeCo_author">
+							<xsl:variable name="Indexs" select="position()"/>
+							<xsl:for-each select="Co_author">
+								<xsl:variable name="PageArticle" select="$TotalCo_author - $Indexs + 1"/>
+								<xsl:if test="$IsCo_author = .">
+					[<a href="{$P_LastName}.{$P_firstName}.html#p{$PageArticle}">
+									<xsl:value-of select="$PageArticle"/>
+				</a>]<xsl:text> </xsl:text>
+
+			</xsl:if>
+		</xsl:for-each>
+	</xsl:for-each>
+</xsl:for-each>
+
+
+
+			</td>
 			</tr>
 		</xsl:for-each-group>
 	</xsl:template>
