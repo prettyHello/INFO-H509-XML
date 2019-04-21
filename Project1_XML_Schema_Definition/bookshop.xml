@@ -3,18 +3,18 @@
 <bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ScientificProducts>
 		<book type="scientific" isbn="h-78">
-			<title> Teste du title du libre</title>
+			<title> Cybersecurity</title>
 			<ListingAuthors>
 				<authors ID="P1">
 					<person sexe="M">
-						<name>DOE</name>
-						<FirstName>John</FirstName>
+						<name>Siewe</name>
+						<FirstName>Anicet</FirstName>
 						<adresse>
 							<numero>7</numero>
 							<rue>impasse du chemin</rue>
 							<PostalCode>7505</PostalCode>
-							<city>PARIS</city>
-							<country>FRANCE</country> 
+							<city>Bruxelle</city>
+							<country>Belgique</country>
 						</adresse>
 						<Phones>
 							<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
@@ -28,13 +28,13 @@
 					</person>
 				</authors>
 			</ListingAuthors>
-			<publisher>Nom de l'editeur</publisher>
-			<YearPublication>2019</YearPublication>
-			<abstract>un bon bon petit resumer</abstract>
+			<publisher>ULB</publisher>
+			<YearPublication>2016</YearPublication>
+			<abstract>Cryptography Systems and Networks Legal, ethics, and human aspects Management of the Security Secure software engineering</abstract>
 			<edition>edition NATAN</edition>
 		</book>
 		<journals>
-			<title> title du Jounal</title>
+			<title> RESEARCH LABS</title>
 			<volume>67</volume>
 			<number>7654</number>
 			<ListingAuthors>
@@ -66,18 +66,18 @@
 			<ImpactFactor Year="2019"> Type pas encorre connue</ImpactFactor>
 			<contents>
 				<article>
-					<title> title du Jounal</title>
+					<title> Article 1</title>
 					<ListingAuthors>
 						<authors ID="eds">
 							<person sexe="M">
-								<name>DOE</name>
-								<FirstName>John</FirstName>
+								<name>Anicet</name>
+								<FirstName>Siewe</FirstName>
 								<adresse>
 									<numero>7</numero>
 									<rue>impasse du chemin</rue>
 									<PostalCode>7515</PostalCode>
-									<city>PARIS</city>
-									<country>FRANCE</country>
+									<city>Bruxelle</city>
+									<country>Belgique</country>
 								</adresse>
 								<Phones>
 									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
@@ -106,14 +106,14 @@
 			<ListingAuthors>
 						<authors ID="PTs">
 							<person sexe="M">
-								<name>DOE</name>
-								<FirstName>John</FirstName>
+								<name>Anicet</name>
+								<FirstName>Siewe</FirstName>
 								<adresse>
 									<numero>7</numero>
 									<rue>impasse du chemin</rue>
 									<PostalCode>7515</PostalCode>
-									<city>PARIS</city>
-									<country>FRANCE</country>
+									<city>Bruxelle</city>
+									<country>Belgique</country>
 								</adresse>
 								<Phones>
 									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>

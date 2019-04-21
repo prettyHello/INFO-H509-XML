@@ -2,8 +2,8 @@
 
 <bookshop xsi:noNamespaceSchemaLocation="bookshop_xml_shema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ScientificProducts>
-		<book type="scientific" isbn="h-78">
-			<title> Teste du title du libre</title>
+		<book type="scientific">
+			<title> Penetration Testing</title>
 			<ListingEditors>
 				<editor ID="P1">
 						<name>anicet</name>
@@ -16,8 +16,6 @@
 						</adresse>
 						<Phones>
 							<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
-							<Phone type="cellphone" locality="BEL">03265765765675</Phone>
-							<Phone type="OfficePhone" locality="BEL">0325865675</Phone>
 						</Phones>
 						<emails>
 							<email type="personnel">asiewekoulbacbe</email>
@@ -25,29 +23,29 @@
 						</emails>
 				</editor>
 			</ListingEditors>
-			<publisher>Nom de l'editeur</publisher>
-			<YearPublication>2019</YearPublication>
+			<publisher>Offensive security</publisher>
+			<YearPublication>2000</YearPublication>
 		</book>
 		<journals>
-			<title> title du Jounal</title>
-			<volume>67</volume>
-			<number>7654</number>
+			<title> RESEARCH LABS 2</title>
+			<volume>57</volume>
+			<number>354</number>
 			<NumRedactor>756</NumRedactor>
-			<YearPublication>2019</YearPublication>
+			<YearPublication>2015</YearPublication>
 			<contents>
 				<article>
-					<title> title du Jounal</title>
+					<title> Article 2</title>
 					<ListingAuthors>
 						<authors ID="eds">
-							<person sexe="M">
-								<name>DOE</name>
-								<FirstName>John</FirstName>
+							<person sexe="F">
+								<name>Anicet</name>
+								<FirstName>Siewe</FirstName>
 								<adresse>
 									<numero>7</numero>
 									<rue>impasse du chemin</rue>
 									<PostalCode>7515</PostalCode>
-									<city>PARIS</city>
-									<country>FRANCE</country>
+									<city>Bruxelle</city>
+									<country>Belgique</country>
 								</adresse>
 								<Phones>
 									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
@@ -73,14 +71,14 @@
 			<ListingAuthors>
 						<authors ID="PTs">
 							<person sexe="M">
-								<name>DOE</name>
-								<FirstName>John</FirstName>
+								<name>Anicet</name>
+								<FirstName>Siewe</FirstName>
 								<adresse>
 									<numero>7</numero>
 									<rue>impasse du chemin</rue>
 									<PostalCode>7515</PostalCode>
-									<city>PARIS</city>
-									<country>FRANCE</country>
+									<city>Bruxelle</city>
+									<country>Belgique</country>
 								</adresse>
 								<Phones>
 									<Phone type="HousePhone" locality="BEL">03265765675675</Phone>
