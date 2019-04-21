@@ -258,9 +258,8 @@
 								<xsl:if test="$IsCo_author = .">
 					[<a href="{$P_LastName}.{$P_firstName}.html#p{$PageArticle}">
 									<xsl:value-of select="$PageArticle"/>
-				</a>]<xsl:text> </xsl:text>
-
-			</xsl:if>
+					 </a>]<xsl:text> </xsl:text>
+				 		</xsl:if>
 		</xsl:for-each>
 	</xsl:for-each>
 </xsl:for-each>
