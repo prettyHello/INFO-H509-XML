@@ -249,7 +249,7 @@
 					</a>
 				</td>
 				<td align="left">
-					<xsl:for-each select="number(count($dblps/*/*[author=$P_NameAuthor] | *[editor=$P_NameAuthor] ))">
+					<xsl:for-each select="number(count($dblps/*/*[author=$P_NameAuthor] | $dblps/*/*[editor=$P_NameAuthor] ))">
 						<xsl:variable name="TotalCo_author" select="."/>
 						<xsl:for-each select="$Co_authors/ListeCo_author">
 							<xsl:variable name="Indexs" select="position()"/>
